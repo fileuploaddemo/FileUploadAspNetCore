@@ -36,7 +36,8 @@ namespace FileUploadAspNetCore
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
+            
+            app.UseStaticFiles();
             app.UseMvc(routes => 
             { 
                 routes.MapRoute( 

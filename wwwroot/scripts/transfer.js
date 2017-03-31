@@ -25,29 +25,33 @@ $(function () {
 			return;
 		}
 		var fileName = $(this).siblings(':first').text();
-		var deleteUrl = "files/" + encodeURI(fileName);
+		var deleteUrl = "/api/files/" + encodeURI(fileName);
 		var fileInfoContainer = $(this).parent();
 		fileInfoContainer.css({ 'color': '#fff', 'background-color': '#cb4638' });
 		fileInfoContainer.find('.trash').removeClass('trash').unbind();
 		fileInfoContainer.find('.download').removeClass('download').unbind();
-		$.post(deleteUrl, { '_method': 'delete' }, function () {
-			setTimeout(function () {
-				fileInfoContainer.slideUp('fast', function () {
-					fileInfoContainer.remove();
-				});
-			}, 300);
+		$.ajax({
+			type: "DELETE",
+			url: deleteUrl,
+			success: function () {
+				setTimeout(function () {
+					fileInfoContainer.slideUp('fast', function () {
+						fileInfoContainer.remove();
+					});
+				}, 300);
+			} 
 		});
 	}
 
 	function downloadBook() {
 		var fileName = $(this).siblings(':first').text();
-		var url = "files/" + encodeURI(fileName);
+		var url = "/api/files/" + encodeURI(fileName);
 		window.location = url;
 	}
 
 	function loadFileList() {
 		var now = new Date();
-		var url = "files?";
+		var url = "/api/files?";
 		$.getJSON(url + now.getTime(), function (data) {
 			files = data;
 			fillFilesContainer();
@@ -124,7 +128,7 @@ $(function () {
 		var row = $("#right .file [filename='" + escape(fileName) + "']").parent();
 
 		$.ajaxFileUpload({
-			url: 'files',
+			url: '/api/files',
 			secureuri: false,
 			fileElementId: eleFileId,
 			dataType: 'text',
@@ -299,7 +303,7 @@ $(function () {
 	function getHtml5Uploader() {
 		if (!html5Uploader) {
 			html5Uploader = new bitcandies.FileUploader({
-				url: 'files',
+				url: '/api/files',
 				maxconnections: 1,
 				fieldname: 'newfile',
 				enqueued: function (item) {
