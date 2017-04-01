@@ -44,7 +44,6 @@ namespace FileUploadAspNetCore.Controllers
 
         // POST api/files
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Post()
         {
             if (!MultipartRequestHelper.IsMultipartContentType(Request.ContentType))
