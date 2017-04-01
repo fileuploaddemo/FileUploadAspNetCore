@@ -28,7 +28,7 @@ function DownloadWithRetry([string] $url, [string] $downloadLocation, [int] $ret
     }
 }
 
-cd $PSScriptRoot
+Set-Location $PSScriptRoot
 
 $repoFolder = $PSScriptRoot
 $env:REPO_FOLDER = $repoFolder
