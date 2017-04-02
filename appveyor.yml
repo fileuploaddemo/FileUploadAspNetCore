@@ -3,17 +3,14 @@ configuration:
 - Debug
 - Release
 platform: Any CPU
-environment:
-  # Don't report back to the mothership
-  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+branches:
+  only:
+    - master
 init:
   - git config --global core.autocrlf true
   - ps: $Env:LABEL = "CI" + $Env:APPVEYOR_BUILD_NUMBER.PadLeft(5, "0")
 before_build:
 - appveyor-retry dotnet restore -v Minimal
-branches:
-  only:
-    - master
 build_script:
 - dotnet build "src\FileUploadAspNetCore" -c %CONFIGURATION% --version-suffix %LABEL%
 after_build:
