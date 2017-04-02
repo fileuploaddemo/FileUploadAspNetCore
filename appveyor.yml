@@ -13,7 +13,7 @@ before_build:
 build_script:
 - dotnet build "src\FileUploadAspNetCore" -c %CONFIGURATION% --version-suffix %LABEL%
 after_build:
-- dotnet publish "src\FileUploadAspNetCore" -c %CONFIGURATION% --version-suffix %LABEL% -o ../../release
+- dotnet publish "src\FileUploadAspNetCore" -c %CONFIGURATION% --version-suffix %LABEL% -o ../../artifacts
 test: off
 environment:
   access_token:
