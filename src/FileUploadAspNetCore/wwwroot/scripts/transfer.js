@@ -181,7 +181,7 @@ $(function () {
 		return null;
 	}
 	function checkFileSize(files) {
-		var maxsize = 1 * 1024 * 1024;//1M
+		var maxsize = 1 * 1024 * 1024 * 1024;//10M
 		
 		var filesize = 0;
 		if (!$.browser.msie) {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using FileInfo = FileUploadAspNetCore.Models.FileInfo;
+using IoFileInfo = System.IO.FileInfo;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
@@ -19,27 +20,40 @@ namespace FileUploadAspNetCore.Controllers
         // Get the default form options so that we can use them to set the default limits for
         // request body data
         private static readonly FormOptions _defaultFormOptions = new FormOptions();
+        private  static readonly string FilePath = AppContext.BaseDirectory + "/books/";
         // GET api/files
         [HttpGet]
         public IEnumerable<FileInfo> Get()
         {
-            var file = new FileInfo
+            if (!Directory.Exists(FilePath))
             {
-                Id = 1,
-                Name = "lala",
-                Size = 100,
-                Path = "233"
-            };
+                Directory.CreateDirectory(FilePath);
+            }
+            var files = Directory.GetFiles(FilePath);
             var lst = new List<FileInfo>();
-            lst.Add(file);
+            var count = 0;
+            foreach(var f in files)
+            {
+                var fileInfo = new IoFileInfo(f);
+                var file = new FileInfo
+                {
+                    Id = count++,
+                    Name = fileInfo.Name,
+                    Size = fileInfo.Length,
+                    Path = fileInfo.FullName
+                };
+                lst.Add(file);
+            }
+            
             return lst;
         }
 
         // GET api/files/bookname
         [HttpGet("{fileName}")]
-        public string Get(string fileName)
+        public FileResult Get(string fileName)
         {
-            return "download file";
+            byte[] fileBytes = System.IO.File.ReadAllBytes(FilePath + fileName);
+            return File(fileBytes, "application/octet-stream", fileName);
         }
 
         // POST api/files
@@ -71,7 +85,7 @@ namespace FileUploadAspNetCore.Controllers
                 {
                     if (MultipartRequestHelper.HasFileContentDisposition(contentDisposition))
                     {
-                        targetFilePath = Path.GetTempFileName();
+                        targetFilePath = FilePath + contentDisposition.FileName.Trim('"');
                         using (var targetStream = System.IO.File.Create(targetFilePath))
                         {
                             await section.Body.CopyToAsync(targetStream);
@@ -117,7 +131,7 @@ namespace FileUploadAspNetCore.Controllers
                 section = await reader.ReadNextSectionAsync();
             }
 
-        
+
             return Json("OK");
         }
 
@@ -125,7 +139,16 @@ namespace FileUploadAspNetCore.Controllers
         [HttpDelete("{fileName}")]
         public string Delete(string fileName)
         {
-            return "delete file";
+            System.IO.FileInfo fi = new System.IO.FileInfo(FilePath + fileName);
+            try
+            {
+                fi.Delete();
+            }
+            catch (System.IO.IOException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return "OK";
         }
 
         private static Encoding GetEncoding(MultipartSection section)

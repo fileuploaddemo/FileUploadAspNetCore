@@ -1,1 +1,2 @@
 # A file upload web site with asp.net core
+AppVeyor: [![Build status](https://ci.appveyor.com/api/projects/status/sljxjej89bgm2rin/branch/master?svg=true)](https://ci.appveyor.com/project/codeyu/fileuploadaspnetcore/branch/master)
