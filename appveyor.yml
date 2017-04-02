@@ -1,15 +1,23 @@
+version: '1.0.{build}'
+configuration:
+- Debug
+- Release
+platform: Any CPU
+environment:
+  # Don't report back to the mothership
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
 init:
   - git config --global core.autocrlf true
-version: '1.0.{build}'
-# Start builds on tags only (GitHub and BitBucket)
-skip_non_tags: true
-pull_requests:
-  do_not_increment_build_number: true
+  - ps: $Env:LABEL = "CI" + $Env:APPVEYOR_BUILD_NUMBER.PadLeft(5, "0")
+before_build:
+- appveyor-retry dotnet restore -v Minimal
 branches:
   only:
     - master
 build_script:
-  - ps: .\build.ps1
+- dotnet build "src\FileUploadAspNetCore" -c %CONFIGURATION% --version-suffix %LABEL%
+after_build:
+- dotnet publish "src\FileUploadAspNetCore" -c %CONFIGURATION% --version-suffix %LABEL% -o ../../release
 test: off
 environment:
   access_token:
