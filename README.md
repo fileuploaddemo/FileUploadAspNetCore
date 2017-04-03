@@ -4,10 +4,10 @@
 | Build server| Platform       | Status      |
 |-------------|----------------|-------------|
 | AppVeyor    | Windows        |[![Build status](https://ci.appveyor.com/api/projects/status/sljxjej89bgm2rin/branch/master?svg=true)](https://ci.appveyor.com/project/codeyu/fileuploadaspnetcore/branch/master) |
-|Travis       | Linux / MacOS  | |
+|Travis       | Linux / MacOS  | [![Build status](https://travis-ci.org/codeyu/FileUploadAspNetCore.svg?branch=master)](https://travis-ci.org/codeyu/FileUploadAspNetCore) |
 
 ## Online demo (daocloud.io Website)
 [codeyu-duokan.daoapp.io](http://codeyu-duokan.daoapp.io/)
 
-## Docker
-- Run the app: `docker run --name duokan -d -p 6000:6000 codeyu/fileuploadaspnetcore`
+## Docker ([codeyu/fileuploadaspnetcore](https://hub.docker.com/r/codeyu/fileuploadaspnetcore/))
+- Run the app: `docker run --name duokan -d -p 60000:60000 codeyu/fileuploadaspnetcore`
