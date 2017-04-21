@@ -3,8 +3,8 @@
 ## Build Status
 | Build server| Platform       | Status      |
 |-------------|----------------|-------------|
-| AppVeyor    | Windows        |[![Build status](https://ci.appveyor.com/api/projects/status/sljxjej89bgm2rin/branch/master?svg=true)](https://ci.appveyor.com/project/codeyu/fileuploadaspnetcore/branch/master) |
-|Travis       | Linux / MacOS  | [![Build status](https://travis-ci.org/codeyu/FileUploadAspNetCore.svg?branch=master)](https://travis-ci.org/codeyu/FileUploadAspNetCore) |
+| AppVeyor    | Windows        |[![Build status](https://ci.appveyor.com/api/projects/status/4tojbl2jq3f4usxi/branch/master?svg=true)](https://ci.appveyor.com/project/codeyu/fileuploadaspnetcore/branch/master) |
+|Travis       | Linux / MacOS  | [![Build status](https://travis-ci.org/fileuploaddemo/FileUploadAspNetCore.svg?branch=master)](https://travis-ci.org/fileuploaddemo/FileUploadAspNetCore) |
 
 ## Online demo (daocloud.io Website)
 [codeyu-duokan.daoapp.io](http://codeyu-duokan.daoapp.io/)
