@@ -1,0 +1,4 @@
+{
+  "urls": "http://*:60000",
+  "environment": "Production"
+}
