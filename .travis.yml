@@ -16,5 +16,6 @@ branches:
   only:
     - master
 script:
+  - ulimit -n 2048
   - dotnet restore "src\FileUploadAspNetCore" 
   - dotnet build "src\FileUploadAspNetCore"
